@@ -1,0 +1,49 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="text-primary">📦 Lista de Productos</h2>
+
+    <div>
+      <a class="btn btn-primary me-2" routerLink="/orden">
+        🧾 Ir a Orden
+      </a>
+
+      
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+
+      <table class="table table-hover table-striped" *ngIf="productos.length > 0; else sinDatos">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of productos">
+            <td>{{ p.id }}</td>
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.precio | currency:'USD' }}</td>
+
+            <td>
+              <button class="btn btn-sm btn-primary" [routerLink]="['/orden']">
+                ➜ Ordenar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #sinDatos>
+        <div class="alert alert-info text-center mt-3">
+          No hay productos disponibles.
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+</div>

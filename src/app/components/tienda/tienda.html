@@ -1,0 +1,85 @@
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
+  <div class="container px-4 px-lg-5">
+    <a class="navbar-brand fw-bold" href="#">GameStock</a>
+
+    <!-- BUSCADOR -->
+    <form class="d-flex mx-auto" style="width: 400px;">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Buscar productos..."
+          [(ngModel)]="searchText"
+          (input)="filtrarProductos()"
+          name="busqueda"
+        />
+      </div>
+    </form>
+
+    <form class="d-flex ms-auto">
+      <a class="btn btn-outline-dark" href="/carrito">
+        <i class="bi-cart-fill me-1"></i>
+        Carrito
+        <span class="badge bg-dark text-white ms-1 rounded-pill">{{ carrito.length }}</span>
+      </a>
+    </form>
+  </div>
+</nav>
+
+<!-- CABECERA -->
+<header class="bg-dark py-5">
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="text-center text-white">
+      <h1 class="display-4 fw-bolder">Juega como un profesional</h1>
+      <p class="lead fw-normal text-white-50 mb-0">
+        Los mejores productos para gamers en un solo lugar
+      </p>
+    </div>
+  </div>
+</header>
+
+<!-- LISTA DE PRODUCTOS -->
+<section class="py-5">
+  <div class="container px-4 px-lg-5 mt-5">
+    <div
+      class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+    >
+      <!-- Bucle de productos -->
+      <div
+        class="col mb-5"
+        *ngFor="let item of productosFiltrados; let i = index"
+      >
+        <div class="card h-100 shadow-sm">
+          <!-- IMAGEN -->
+          <img
+            class="card-img-top"
+            [src]="'assets/images/' + item.imagen"
+            [alt]="item.nombre"
+            style="height: 200px; object-fit: cover;"
+          />
+
+          <!-- CONTENIDO -->
+          <div class="card-body text-center">
+            <h5 class="fw-bolder">{{ item.nombre }}</h5>
+            <h4 class="text-success">S/. {{ item.precio }}</h4>
+
+            <!-- BOTÓN -->
+            <div class="text-center mt-3">
+              <button class="btn btn-outline-dark" (click)="agregar(item.id!)">
+                Agregar al carrito
+              </button>              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-5 bg-dark">
+  <div class="container">
+    <p class="m-0 text-center text-white">© GameStock 2025</p>
+  </div>
+</footer>

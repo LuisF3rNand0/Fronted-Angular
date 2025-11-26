@@ -1,0 +1,19 @@
+<div class="container mt-4">
+  <h2>Registrar Producto</h2>
+
+  <div class="card p-4 mt-3">
+    <div class="mb-3">
+      <label>Nombre</label>
+      <input type="text" class="form-control" [(ngModel)]="producto.nombre">
+    </div>
+
+    <div class="mb-3">
+      <label>Precio</label>
+      <input type="number" class="form-control" [(ngModel)]="producto.precio">
+    </div>
+
+    <button (click)="registrar()" class="btn btn-primary">Guardar</button>
+
+    <p class="mt-3 text-success">{{ mensaje }}</p>
+  </div>
+</div>
