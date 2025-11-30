@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
+  <div class="container px-4">
+    <a class="navbar-brand fw-bold" routerLink="/tienda">GameStock</a>
+
+    <div class="ms-auto">
+      <button class="btn btn-outline-dark">
+        <i class="bi-cart-fill me-1"></i> Carrito
+        <span class="badge bg-dark text-white ms-1 rounded-pill">{{ carrito.length }}</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="container carrito-container mt-4">
+
+  <h2 class="mb-4 text-center">Carrito de Compras</h2>
+
+  <!-- TABLA DEL CARRITO -->
+  <table class="table table-hover align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>Producto</th>
+        <th class="text-center">Precio</th>
+        <th class="text-center">Imagen</th>
+        <th class="text-center">Acción</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (item of carrito; track $index; let i = $index) {
+
+        <tr>
+          <td class="fw-semibold">{{item.nombre}}</td>
+          <td class="text-center"> S/{{item.precio | number:'1.2-2'}}</td>
+
+          <td class="text-center">
+            <img 
+              [src]="'assets/images/' + item.imagen"
+              width="70" height="70"
+              class="rounded shadow-sm"
+            />
+          </td>
+          <td class="text-center">
+            <button class="btn btn-danger btn-sm" (click)="eliminar(i)">eliminar </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+
+    <tfoot class="table-light">
+      <tr>
+        <th colspan="3" class="text-end fs-5">TOTAL: </th>
+        <th class="text-center fs-5">
+          S/{{total | number:'1.2-2'}}
+        </th>
+      </tr>
+    </tfoot>
+  </table>
+
+
+  <!-- BOTONES -->
+  <div class="d-flex justify-content-between mt-4">
+    <button routerLink="/tienda" class="btn btn-secondary btn-lg px-4">
+      Seguir Comprando
+    </button>
+
+    <button routerLink="/pagar" class="btn btn-success btn-lg px-5">
+      Pagar
+    </button>
+  </div>
+
+</div>

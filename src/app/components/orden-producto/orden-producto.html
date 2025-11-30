@@ -1,0 +1,74 @@
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="text-primary">🧾 Crear Orden / Factura</h2>
+    </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+
+      <!-- DATOS DEL USUARIO -->
+      <h4 class="text-secondary mb-3">👤 Datos del Usuario</h4>
+
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">
+          <label class="form-label">Usuario ID:</label>
+          <input type="number" class="form-control"
+            [(ngModel)]="orden.usuarioId"
+            placeholder="Ingrese ID del usuario">
+        </div>
+      </div>
+
+      <hr>
+
+      <!-- DETALLES DE PRODUCTOS -->
+      <h4 class="text-secondary mb-3">📦 Productos</h4>
+
+      <table class="table table-hover table-bordered align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th style="width: 120px;">Producto ID</th>
+            <th style="width: 120px;">Cantidad</th>
+            <th style="width: 80px;">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of orden.detalles; let i = index">
+            <td>
+              <input type="number" class="form-control"
+                [(ngModel)]="item.productoId"
+                placeholder="ID">
+            </td>
+
+            <td>
+              <input type="number" class="form-control"
+                [(ngModel)]="item.cantidad"
+                min="1">
+            </td>
+
+            <td class="text-center">
+              <button class="btn btn-danger btn-sm"
+                *ngIf="orden.detalles.length > 1"
+                (click)="orden.detalles.splice(i, 1)">
+                ✖
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button class="btn btn-primary mb-3"
+        (click)="orden.detalles.push({ productoId: 0, cantidad: 1 })">
+        ➕ Añadir Producto
+      </button>
+
+      <hr>
+
+      <!-- BOTÓN DE CREAR ORDEN -->
+      <button class="btn btn-success w-100" (click)="crearOrden()">
+        💾 Crear Orden / Generar Factura
+      </button>
+
+    </div>
+  </div>
+</div>
