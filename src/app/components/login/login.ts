@@ -34,6 +34,8 @@ export class login {
       .subscribe({
         next: (resp) => {
           console.log('LOGIN OK', resp);
+          //para que se guarde la session
+          localStorage.setItem("usuario", JSON.stringify(resp));
           this.error = '';
           this.router.navigate(['/tienda']); // redirige a tienda
         },

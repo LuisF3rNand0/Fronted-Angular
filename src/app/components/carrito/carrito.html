@@ -21,6 +21,8 @@
       <tr>
         <th>Producto</th>
         <th class="text-center">Precio</th>
+        <th class="text-center">Cantidad</th>
+        <th class="text-center">Stock</th>
         <th class="text-center">Imagen</th>
         <th class="text-center">Acción</th>
       </tr>
@@ -33,6 +35,28 @@
           <td class="fw-semibold">{{item.nombre}}</td>
           <td class="text-center"> S/{{item.precio | number:'1.2-2'}}</td>
 
+<!-- Selector de cantidad -->
+          <td class="text-center">
+            <input
+              type="number"
+              name="cantidad{{i}}"
+              class="form-control text-center"
+              style="width: 80px"
+              [(ngModel)]="item.cantidadSeleccionada"
+              min="1"
+              [max]="item.cantidad"
+              (change)="actualizarCantidad()"
+            />
+            <small *ngIf="item.cantidadSeleccionada > item.cantidad" class="text-danger">
+              Stock insuficiente
+            </small>
+          </td>
+
+          <!-- Stock real -->
+          <td class="text-center">
+            {{ item.cantidad }} unidades
+          </td>
+          
           <td class="text-center">
             <img 
               [src]="'assets/images/' + item.imagen"
@@ -50,21 +74,70 @@
     <tfoot class="table-light">
       <tr>
         <th colspan="3" class="text-end fs-5">TOTAL: </th>
-        <th class="text-center fs-5">
-          S/{{total | number:'1.2-2'}}
-        </th>
+        <th class="text-center fs-5">S/{{total | number:'1.2-2'}}</th>
       </tr>
     </tfoot>
   </table>
+<!-- ========================================================= -->
+  <!-- MÉTODOS DE PAGO ADAPTADOS (DISEÑO MANTENIDO) -->
+  <!-- ========================================================= -->
 
+  <div class="mt-4 p-3 border rounded bg-light shadow-sm">
 
+    <h3 class="mb-3">Método de pago</h3>
+
+    <!-- SELECCIÓN -->
+    <select class="form-select mb-3" [(ngModel)]="metodoPago" name="metodoPago">
+      <option value="">-- Selecciona un método --</option>
+      <option value="tienda">Pago en tienda</option>
+      <option value="yape">Yape</option>
+      <option value="plin">Plin</option>
+      <option value="tarjeta">Tarjeta</option>
+    </select>
+
+    <!-- YAPE -->
+    <div *ngIf="metodoPago === 'yape'" class="border p-3 mb-3 bg-white rounded">
+      <h5>Pago con Yape</h5>
+      <input type="text" maxlength="9" minlength="9" class="form-control"
+             placeholder="Número de celular" [(ngModel)]="yape.numero">
+    </div>
+
+    <!-- PLIN -->
+    <div *ngIf="metodoPago === 'plin'" class="border p-3 mb-3 bg-white rounded">
+      <h5>Pago con Plin</h5>
+      <input type="text" maxlength="9" minlength="9" class="form-control"
+             placeholder="Número de celular" [(ngModel)]="plin.numero">
+    </div>
+
+    <!-- TARJETA -->
+    <div *ngIf="metodoPago === 'tarjeta'" class="border p-3 mb-3 bg-white rounded">
+      <h5>Pago con Tarjeta</h5>
+
+      <input type="text" class="form-control mb-2" maxlength="16" placeholder="Número de tarjeta"
+             [(ngModel)]="tarjeta.numero">
+
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control mb-2" maxlength="5" placeholder="MM/AA"
+                 [(ngModel)]="tarjeta.fecha">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control mb-2" maxlength="3" placeholder="CVV"
+                 [(ngModel)]="tarjeta.cvv">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  
   <!-- BOTONES -->
   <div class="d-flex justify-content-between mt-4">
     <button routerLink="/tienda" class="btn btn-secondary btn-lg px-4">
       Seguir Comprando
     </button>
 
-    <button routerLink="/pagar" class="btn btn-success btn-lg px-5">
+    <button  class="btn btn-success btn-lg px-5" (click)="procesarPago()">
       Pagar
     </button>
   </div>

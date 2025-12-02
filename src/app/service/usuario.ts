@@ -15,4 +15,18 @@ export class usuario {
   login(usuUsername: string, usu_password: string) {
     return this.http.post(this.url, { usuUsername, usu_password });
   }
+
+  isLogged(){
+    return localStorage.getItem("usuario") !==null;
+  }
+
+  getUsuario(){
+    return JSON.parse(localStorage.getItem("usuario")!);
+  }
+
+  logout() {
+  localStorage.removeItem("usuario");
+  }
+
+
 }

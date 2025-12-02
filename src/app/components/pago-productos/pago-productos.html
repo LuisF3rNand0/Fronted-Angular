@@ -33,12 +33,15 @@
 
                 <td>S/ {{ item.precio | number:'1.2-2' }}</td>
 
-                <td>1</td> <!-- Si luego agregas cantidad puedes cambiarlo -->
-
-                <td>S/ {{ item.precio | number:'1.2-2' }}</td>
+                <td>{{ item.cantidadSeleccionada }}</td>
 
                 <td>
-                <img 
+                    S/
+                    {{ (item.precio * item.cantidadSeleccionada) | number:'1.2-2' }}
+                </td>
+
+                <td>
+                    <img 
                     [src]="'assets/images/' + item.imagen + '.jpg'"
                     width="70" height="70" class="rounded shadow-sm">
                 </td>
@@ -48,13 +51,13 @@
             </tbody>
         </table>
 
-        <h4 class="text-end mt-3">
-            <strong>Total a pagar:</strong>
-            <span class="text-success fw-bold">S/ {{ total | number:'1.2-2' }}</span>
+        <!-- TOTAL -->
+        <h4 class="text-end">
+                Total a pagar: 
+                <span class="fw-bold text-success">S/ {{ total | number:'1.2-2' }}</span>
         </h4>
 
-    </div>
-    </div>
+        <h2 class="text-center mb-4">Confirmar Pago</h2>
 
 
     <!-- MÉTODOS DE PAGO -->
